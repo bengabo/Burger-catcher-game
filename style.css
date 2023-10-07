@@ -30,12 +30,16 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 20px;
+  padding: 20px 20px;
 }
 
 main {
   flex: 1;
   display: flex;
+}
+
+.logo {
+  width: 190px;
 }
 
 #gameCanvas {
