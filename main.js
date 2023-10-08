@@ -61,7 +61,7 @@ class GameScene extends Phaser.Scene {
       angle: { min: 180, max: 360 },
       emitZone: {
         type: "random",
-        source: new Phaser.Geom.Rectangle(0, 0, 20, 20),
+        source: new Phaser.Geom.Rectangle(-20, -15, 20, 20),
       },
     });
     this.emitter.startFollow(
