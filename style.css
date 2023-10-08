@@ -33,13 +33,13 @@ footer {
   padding: 20px 20px;
 }
 
-header {
-  height: 150px; /* You can adjust the height as needed */
+/* header {
+  height: 150px;
   background-image: url('./assets/logo.png');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;
-}
+} */
 
 a {
   color: #ffbe00;
@@ -62,7 +62,7 @@ main {
 }
 
 .logo {
-  width: 20%;
+  width: 15%;
   height: auto;
 }
 

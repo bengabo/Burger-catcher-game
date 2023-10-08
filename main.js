@@ -54,8 +54,7 @@ class GameScene extends Phaser.Scene {
     this.textScore = this.add.text(30, 30, "Score: 0", {
       font: "25px Helvetica",
       fill: "#fff",
-      backgroundColor: "#ffbe00" // Change the background color (optional)
-
+      backgroundColor: "#FF2745", // Change the background color (optional)
     });
 
     this.timedEvent = this.time.delayedCall(3000, this.gameOver, [], this);
