@@ -17,6 +17,7 @@ class GameScene extends Phaser.Scene {
     this.emitter;
     this.points = 0;
     this.textScore;
+    this.textTime;
   }
 
   preload() {
@@ -50,6 +51,15 @@ class GameScene extends Phaser.Scene {
     );
     this.cursor = this.input.keyboard.createCursorKeys();
 
+    this.textScore = this.add.text(30, 30, "Score: 0", {
+      font: "25px Helvetica",
+      fill: "#fff",
+      backgroundColor: "#ffbe00" // Change the background color (optional)
+
+    });
+
+    this.timedEvent = this.time.delayedCall(3000, this.gameOver, [], this);
+
     // Coins
     this.emitter = this.add.particles(0, 0, "money", {
       speed: 100,
@@ -72,6 +82,7 @@ class GameScene extends Phaser.Scene {
     );
   }
   update() {
+    this.remainingTime = this.timedEvent.getOverallRemainingSeconds;
     if (this.target.y >= sizes.height) {
       this.target.setY(0);
       this.target.setX(this.getRandomX());
@@ -112,7 +123,10 @@ class GameScene extends Phaser.Scene {
     this.target.setY(0);
     this.target.setX(this.getRandomX());
     this.points++;
+    this.textScore.setText(`Score: ${this.points}`);
   }
+
+  gameOver() {}
 }
 
 const config = {
