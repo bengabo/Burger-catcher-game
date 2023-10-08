@@ -15,6 +15,8 @@ class GameScene extends Phaser.Scene {
     this.playerSpeed = speedDown + 200;
     this.target;
     this.emitter;
+    this.points = 0;
+    this.textScore;
   }
 
   preload() {
@@ -25,11 +27,13 @@ class GameScene extends Phaser.Scene {
   }
   create() {
     this.add.image(0, 0, "bg").setOrigin(0, 0);
+
+    // Red cardbox
     this.player = this.physics.add
       .image(0, sizes.height - 100, "box")
       .setOrigin(0, 0);
     this.player.setScale(0.6);
-    this.player.setSize(75, 20).setOffset(50, 65);
+    this.player.setSize(150, 10).setOffset(10, 70);
     this.player.setImmovable(true);
     this.player.body.allowGravity = false;
     this.player.setCollideWorldBounds(true);
@@ -46,14 +50,26 @@ class GameScene extends Phaser.Scene {
     );
     this.cursor = this.input.keyboard.createCursorKeys();
 
+    // Coins
     this.emitter = this.add.particles(0, 0, "money", {
       speed: 100,
       gravityY: speedDown - 200,
       scale: 0.05,
-      duration: 100,
+      duration: 50,
       emitting: false,
+      quantity: 5,
+      angle: { min: 180, max: 360 },
+      emitZone: {
+        type: "random",
+        source: new Phaser.Geom.Rectangle(0, 0, 20, 20),
+      },
     });
-    this.emitter.startFollow(this.player, this.player.width / 3, this.player.height / 5, true)
+    this.emitter.startFollow(
+      this.player,
+      this.player.width / 3,
+      this.player.height / 5,
+      true
+    );
   }
   update() {
     if (this.target.y >= sizes.height) {
@@ -63,12 +79,27 @@ class GameScene extends Phaser.Scene {
 
     const { left, right } = this.cursor;
 
+    const easeFactor = 0.2;
     if (left.isDown) {
-      this.player.setVelocityX(-this.playerSpeed);
+      this.player.setVelocityX(
+        Phaser.Math.Linear(
+          this.player.body.velocity.x,
+          -this.playerSpeed,
+          easeFactor
+        )
+      );
     } else if (right.isDown) {
-      this.player.setVelocityX(this.playerSpeed);
+      this.player.setVelocityX(
+        Phaser.Math.Linear(
+          this.player.body.velocity.x,
+          this.playerSpeed,
+          easeFactor
+        )
+      );
     } else {
-      this.player.setVelocityX(0);
+      this.player.setVelocityX(
+        Phaser.Math.Linear(this.player.body.velocity.x, 0, easeFactor)
+      );
     }
   }
 
@@ -105,5 +136,4 @@ function preload() {
   this.load.setBaseURL("http://labs.phaser.io");
 }
 
-function create() {
-}
+function create() {}

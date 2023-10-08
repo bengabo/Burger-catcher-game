@@ -33,6 +33,21 @@ footer {
   padding: 20px 20px;
 }
 
+a {
+  color: #ffbe00;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #eed487;
+  text-decoration: none;
+}
+
+footer {
+  font-size: 0.8em;
+  color: #ffbe00;
+}
+
 main {
   flex: 1;
   display: flex;
@@ -42,8 +57,13 @@ main {
   width: 190px;
 }
 
+.logo:hover {
+  filter: drop-shadow(0 0 2em rgba(255, 190, 0, 0.5));
+  transform: scale(1.05) rotate(2.5deg);
+}
+
 #gameCanvas {
-  border: 5px solid #b08d15;
+  border: 5px solid #ffbe00;
   border-radius: 5px;
   position: absolute;
   top: 50%;
