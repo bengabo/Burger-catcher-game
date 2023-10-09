@@ -189,7 +189,3 @@ gameStartBtn.addEventListener("click", () => {
   gameStart.style.display = "none";
   game.scene.resume("scene-game");
 });
-
-gameRestartBtn.addEventListener("click", () => {
-  location.reload();
-});

@@ -7,20 +7,20 @@
       type="image/svg+xml"
       href="/assets/favicon_io/favicon.ico"
     />
+    <link rel="stylesheet" href="https://use.typekit.net/rjp0qqg.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Burger Catcher</title>
   </head>
   <body>
-    <header>
-      <img
-        class="logo"
-        src="./assets/logo.png"
-        alt="Burger Catcher"
-        title="Burger Catcher"
-      />
-    </header>
+    <!-- <header></header> -->
     <main>
       <div id="gameStart" class="gameUI">
+        <img
+          class="logo"
+          src="./assets/logo.png"
+          alt="Burger Catcher"
+          title="Burger Catcher"
+        />
         <h1>
           15 seconds <br />
           to catch burgers!
@@ -32,10 +32,12 @@
         <button id="gameStartBtn"><p>Start</p></button>
       </div>
       <div id="gameEnd" class="gameUI">
-        <h1>Game Over</h1>
+        <h1>Time Over</h1>
         <h2>You<span id="gameWinLose"></span></h2>
         <h2>Final score: <span id="gameEndScore"></span></h2>
-        <button id="gameRestartBtn"><p>Play again</p></button>
+        <button id="gameRestartBtn" onClick="window.location.reload()">
+          <p>Play again</p>
+        </button>
       </div>
       <canvas id="gameCanvas"></canvas>
     </main>
