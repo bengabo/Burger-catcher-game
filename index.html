@@ -20,6 +20,24 @@
       />
     </header>
     <main>
+      <div id="gameStart" class="gameUI">
+        <h1>
+          15 seconds <br />
+          to catch burgers!
+        </h1>
+        <div class="textIntro">
+          <p>More than 10 burgers, you win!</p>
+          <p>Less than 10 burgers, you lose!</p>
+        </div>
+        <button id="gameStartBtn"><p>Start</p></button>
+      </div>
+      <div id="gameEnd" class="gameUI">
+        <h1>Game Over</h1>
+        <h2>You<span id="gameWinLose"></span></h2>
+        <h2>Final score: <span id="gameEndScore"></span></h2>
+        <!-- <button id="gameRestartBtn"><p>Play again</p></button>
+        <p>Refresh the page to play again</p> -->
+      </div>
       <canvas id="gameCanvas"></canvas>
     </main>
     <footer>

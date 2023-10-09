@@ -5,7 +5,14 @@ const sizes = {
   width: 500,
   height: 500,
 };
-const speedDown = 300;
+const speedDown = 400;
+
+const gameStart = document.querySelector("#gameStart");
+const gameStartBtn = document.querySelector("#gameStartBtn");
+const gameRestartBtn = document.querySelector("#gameRestartBtn");
+const gameEnd = document.querySelector("#gameEnd");
+const gameWinLose = document.querySelector("#gameWinLose");
+const gameEndScore = document.querySelector("#gameEndScore");
 
 class GameScene extends Phaser.Scene {
   constructor() {
@@ -14,10 +21,12 @@ class GameScene extends Phaser.Scene {
     this.cursor;
     this.playerSpeed = speedDown + 200;
     this.target;
-    this.emitter;
     this.points = 0;
     this.textScore;
     this.textTime;
+    this.timedEvent;
+    this.remainingTime;
+    this.emitter;
   }
 
   preload() {
@@ -27,6 +36,9 @@ class GameScene extends Phaser.Scene {
     this.load.image("money", "/assets/money.png");
   }
   create() {
+    this.scene.pause("scene-game");
+
+    // Background image
     this.add.image(0, 0, "bg").setOrigin(0, 0);
 
     // Red cardbox
@@ -40,6 +52,7 @@ class GameScene extends Phaser.Scene {
     this.player.setCollideWorldBounds(true);
     // this.add.image(0, 0, "burger").setOrigin(0, 0);
 
+    // Burger
     this.target = this.physics.add.image(0, 0, "burger").setOrigin(0, 0);
     this.target.setMaxVelocity(50, speedDown);
     this.physics.add.overlap(
@@ -50,14 +63,6 @@ class GameScene extends Phaser.Scene {
       this
     );
     this.cursor = this.input.keyboard.createCursorKeys();
-
-    this.textScore = this.add.text(30, 30, "Score: 0", {
-      font: "25px Helvetica",
-      fill: "#fff",
-      backgroundColor: "#FF2745", // Change the background color (optional)
-    });
-
-    this.timedEvent = this.time.delayedCall(3000, this.gameOver, [], this);
 
     // Coins
     this.emitter = this.add.particles(0, 0, "money", {
@@ -79,9 +84,28 @@ class GameScene extends Phaser.Scene {
       this.player.height / 5,
       true
     );
+
+    // Text
+    this.textScore = this.add.text(30, 30, "Score: 0", {
+      font: "25px Helvetica",
+      fill: "#fff",
+      backgroundColor: "#FF2745",
+    });
+
+    this.textTime = this.add.text(sizes.width - 120, 30, "Time: 00", {
+      font: "25px Helvetica",
+      fill: "#fff",
+      backgroundColor: "#FF2745",
+    });
+
+    this.timedEvent = this.time.delayedCall(15000, this.gameOver, [], this);
+    console.log(this.timedEvent);
   }
+
   update() {
-    this.remainingTime = this.timedEvent.getOverallRemainingSeconds;
+    this.remainingTime = this.timedEvent.getRemainingSeconds();
+    this.textTime.setText(`Time: ${Math.round(this.remainingTime).toString()}`);
+
     if (this.target.y >= sizes.height) {
       this.target.setY(0);
       this.target.setX(this.getRandomX());
@@ -125,7 +149,18 @@ class GameScene extends Phaser.Scene {
     this.textScore.setText(`Score: ${this.points}`);
   }
 
-  gameOver() {}
+  gameOver() {
+    // game.scene.resume("scene-game");
+    this.sys.game.destroy(true);
+    if (this.points >= 10) {
+      gameEndScore.textContent = this.points;
+      gameWinLose.textContent = " win!";
+    } else if (this.points < 10) {
+      gameEndScore.textContent = this.points;
+      gameWinLose.textContent = " lose!";
+    }
+    gameEnd.style.display = "flex";
+  }
 }
 
 const config = {
@@ -143,10 +178,20 @@ const config = {
   scene: [GameScene],
 };
 
-var game = new Phaser.Game(config);
+const game = new Phaser.Game(config);
 
 function preload() {
   this.load.setBaseURL("http://labs.phaser.io");
 }
 
 function create() {}
+
+gameStartBtn.addEventListener("click", () => {
+  gameStart.style.display = "none";
+  game.scene.resume("scene-game");
+});
+
+// gameRestartBtn.addEventListener("click", () => {
+//   gameEnd.style.display = "none";
+//   window.location.reload();
+// });
