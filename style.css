@@ -106,13 +106,21 @@ main {
 }
 button {
   display: inline-block;
+  background-color: var(--red);
+  border: 2px solid var(--orange);
+  color: var(--orange);
   width: auto;
-  font-size: 1.5em;
+  font-size: 2em;
   padding: 10px 15px;
-  margin: 15px 0;
+  margin: 30px 0;
   text-align: center;
   font-family: inherit;
   border-radius: 15px;
+  box-shadow: var(--red) 6px 6px 0 0;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  line-height: 25px;
 }
 
 button p {
@@ -120,8 +128,14 @@ button p {
 }
 
 button:hover {
-  background-color: var(--red);
-  /* border: 0.5px solid var(--liclr); */
-  color: var(--liclr);
+  background-color: white;
+  color: var(--red);
+  border: 2px solid var(--red);
   cursor: pointer;
+}
+
+button:active {
+  background-color: var(--yellow);
+  box-shadow: var(--red) 1px 1px 0 0;
+  transform: translate(5px, 5px);
 }
