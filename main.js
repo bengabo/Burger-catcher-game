@@ -7,12 +7,12 @@ const sizes = {
 };
 const speedDown = 400;
 
-const gameStart = document.querySelector("#gameStart");
-const gameStartBtn = document.querySelector("#gameStartBtn");
-const gameRestartBtn = document.querySelector("#gameRestartBtn");
-const gameEnd = document.querySelector("#gameEnd");
-const gameWinLose = document.querySelector("#gameWinLose");
-const gameEndScore = document.querySelector("#gameEndScore");
+const gameStart = document.getElementById("gameStart");
+const gameStartBtn = document.getElementById("gameStartBtn");
+const gameRestartBtn = document.getElementById("gameRestartBtn");
+const gameEnd = document.getElementById("gameEnd");
+const gameWinLose = document.getElementById("gameWinLose");
+const gameEndScore = document.getElementById("gameEndScore");
 
 class GameScene extends Phaser.Scene {
   constructor() {
@@ -99,7 +99,6 @@ class GameScene extends Phaser.Scene {
     });
 
     this.timedEvent = this.time.delayedCall(15000, this.gameOver, [], this);
-    console.log(this.timedEvent);
   }
 
   update() {
@@ -191,7 +190,6 @@ gameStartBtn.addEventListener("click", () => {
   game.scene.resume("scene-game");
 });
 
-// gameRestartBtn.addEventListener("click", () => {
-//   gameEnd.style.display = "none";
-//   window.location.reload();
-// });
+gameRestartBtn.addEventListener("click", () => {
+  location.reload();
+});
